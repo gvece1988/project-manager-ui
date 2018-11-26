@@ -1,0 +1,46 @@
+<app-add-user (userSubmit)="getUsers($event)" [user]="user"></app-add-user>
+<div *ngIf="users?.length > 0; else noRecords">
+  <div class="row mt-2">
+    <div class="col-sm-6">
+      <input type="text" id="txtSearchUser" #searchUser class="form-control" placeholder="Search..." (keyup)="searchUsers(searchUser.value)" />
+    </div>
+    <div class="col-sm-6">
+      <label class="form-control-static">Sort:</label>&nbsp;
+      <input type="button" value="First Name" class="btn" (click)="sortUsers('firstName')" />&nbsp;
+      <input type="button" value="Last Name" class="btn" (click)="sortUsers('lastName')" />&nbsp;
+      <input type="button" value="Id" class="btn" (click)="sortUsers('employeeId')" />
+    </div>
+  </div>
+  <hr />
+  <div *ngFor="let user of users">
+    <div class="row mb-2">
+      <div class="col-sm-8">
+        {{user.firstName}}
+      </div>
+      <div class="col-sm-4">
+        <input type="button" value="Edit" class="btn" (click)="editUser(user)" scrollTop />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-sm-8">
+        {{user.lastName}}
+      </div>
+      <div class="col-sm-4">
+        <input type="button" value="Delete" class="btn" (click)="deleteUser(user.id)" />
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-sm-8">
+        {{user.employeeId}}
+      </div>
+      <div class="col-sm-4">
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+<ng-template #noRecords>
+  <div>
+    <b>No Records Found</b>
+  </div>
+</ng-template>

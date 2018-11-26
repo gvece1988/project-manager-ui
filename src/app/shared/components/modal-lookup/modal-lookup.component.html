@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Select a {{lookupFor}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <input type="text" id="lookup" #lookup class="form-control" placeholder="Search..." (keyup)="searchLookup(lookup.value)" />
+  <br />
+  <ul *ngIf="lookups.length; else noRecords">
+    <li *ngFor="let lookup of lookups"><a (click)="selectLookup(lookup)">{{lookup.value}}</a></li>
+  </ul>
+  <ng-template #noRecords>
+    <div>
+      <b>No {{lookupFor}}s Found</b>
+    </div>
+  </ng-template>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="closeModal()">{{closeBtnName}}</button>
+</div>

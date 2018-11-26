@@ -1,0 +1,13 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <h3>Project Manager</h3>
+  <ul class="nav">
+    <li class="nav-item"><a [routerLink]="'/project'" class="nav-link" routerLinkActive="active-link">Add Project</a></li>
+    <li class="nav-item"><a [routerLink]="'/addtask'" class="nav-link" routerLinkActive="active-link">Add Task</a></li>
+    <li class="nav-item"><a [routerLink]="'/user'" class="nav-link" routerLinkActive="active-link">Add User</a></li>
+    <li class="nav-item"><a [routerLink]="'/viewtask'" class="nav-link" routerLinkActive="active-link">View Task</a></li>
+  </ul>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

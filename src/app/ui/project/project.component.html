@@ -1,0 +1,66 @@
+<app-add-project (projectSubmit)="getProjects($event)" [project]="project"></app-add-project>
+
+<div *ngIf="projects?.length > 0; else noRecords">
+  <div class="row mt-2">
+    <div class="col-sm-6">
+      <input type="text" id="txtSearchProject" #searchProject class="form-control" placeholder="Search..." (keyup)="searchProjects(searchProject.value)" />
+    </div>
+    <div class="col-sm-6">
+      <label class="form-control-static">Sort:</label>&nbsp;
+      <input type="button" value="Start Date" class="btn" (click)="sortProjects('startDate')" />&nbsp;
+      <input type="button" value="End Date" class="btn" (click)="sortProjects('endDate')" />&nbsp;
+      <input type="button" value="Priority" class="btn" (click)="sortProjects('priority')" />&nbsp;
+      <input type="button" value="Completed" class="btn" (click)="sortProjects('tasksCompleted')" />
+    </div>
+  </div>
+  <hr />
+  <div *ngFor="let project of projects">
+    <div class="row mb-2">
+      <div class="col-sm-8 bg-light">
+        <div class="row">
+          <div class="col-sm-12">
+            <b>Project:</b> {{project.title}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <b>No of tasks:</b> {{project.tasks?.length}}
+          </div>
+          <div class="col-sm-6">
+            <b>Completed:</b> {{project.tasksCompleted}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <b>Start Date:</b> {{project.startDate | date: 'dd/MM/yyyy'}}
+          </div>
+          <div class="col-sm-6">
+            <b>End Date:</b> {{project.endDate | date: 'dd/MM/yyyy'}}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-6 bg-light">
+            <b>Priority:</b><br />
+            {{project.priority}}
+          </div>
+          <div class="col-sm-6">
+            <input type="button" value="Edit" class="btn" (click)="editProject(project)" scrollTop />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 offset-sm-6">
+            <input type="button" value="Suspend" class="btn" (click)="deleteProject(project.id)" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+<ng-template #noRecords>
+  <div>
+    <b>No Records Found</b>
+  </div>
+</ng-template>

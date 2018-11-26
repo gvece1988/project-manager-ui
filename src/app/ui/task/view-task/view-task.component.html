@@ -1,0 +1,54 @@
+<div class="row mt-2">
+  <div class="col-sm-6">
+    <label class="float-left mr-2 mt-1">Project</label>
+    <input type="text" id="project" class="form-control col-sm-6 float-left mr-2" disabled value="{{project?.value}}" />
+    <input type="button" value="Search" class="btn" (click)="openModal(projectLookups)" />
+  </div>
+  <div class="col-sm-6" *ngIf="project != null">
+    <label class="form-control-static">Sort Tasks By:</label>&nbsp;
+    <input type="button" value="Start Date" class="btn" (click)="sortTasks('startDate')" />&nbsp;
+    <input type="button" value="EndDate" class="btn" (click)="sortTasks('endDate')" />&nbsp;
+    <input type="button" value="Priority" class="btn" (click)="sortTasks('priority')" />&nbsp;
+    <input type="button" value="Completed" class="btn" (click)="sortTasks('isCompleted' ,'desc')" />
+  </div>
+</div>
+<hr />
+<div *ngIf="project != null">
+  <div *ngIf="tasks?.length > 0; else noRecords" class="mt-3">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th>Task</th>
+          <th>Parent</th>
+          <th>Priority</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>
+          </th>
+        </tr>
+      </thead>
+      <tr *ngFor="let task of tasks">
+        <td>{{task.title}}</td>
+        <td>{{task.parentTask?.title}}</td>
+        <td>{{task.priority}}</td>
+        <td>{{task.startDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{task.endDate | date: 'dd/MM/yyyy'}}</td>
+        <td>
+          <div *ngIf="!task.isCompleted">
+            <a class="btn btn-info" [routerLink]="['/updatetask', task.id]">Edit</a>&nbsp;
+            <button class="btn btn-danger" (click)="endTask(task.id)">End Task</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<ng-template #noRecords>
+  <div>
+    <b>No Records Found</b>
+  </div>
+</ng-template>
+
+<ng-template #projectLookups>
+  <app-modal-lookup lookupFor="Project" (lookupSelect)="updateSearchProject($event)" (closeClick)="closeModal()"></app-modal-lookup>
+</ng-template>
